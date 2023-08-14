@@ -222,7 +222,7 @@ const initialState: IBlogState = {
   ],
 };
 
-const AppSlice = createSlice({
+const blogSlice = createSlice({
   name: "blogs",
   initialState,
   reducers: {
@@ -276,5 +276,5 @@ export const {
   articleDeleted,
   articleAdded,
   articleUpdated,
-} = AppSlice.actions;
-export default AppSlice.reducer;
+} = blogSlice.actions;
+export default blogSlice.reducer;

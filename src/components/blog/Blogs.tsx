@@ -8,14 +8,14 @@ import ShowAuthor from "../ShowAuthor";
 
 const Blogs = () => {
   const filter = useSelector((state: RootState) => state.blogs.filter);
-  const articles = useSelector((state: RootState) => getAllArticles(state));
-  const orderedArticles=articles.slice().sort((a,b)=>b.date.localeCompare(a.date))
+  const articles = useSelector((state: RootState) => getAllArticles(state)).slice().sort((a,b)=>b.date.localeCompare(a.date));
+
   return (
     <div className="flex flex-col gap-8 container px-5 py-10">
       <div className="flex justify-center">
         <SearchBox />
       </div>
-      {orderedArticles
+      {articles
         .filter((article) =>
           article.title.toLowerCase().includes(filter.toLowerCase())
         )

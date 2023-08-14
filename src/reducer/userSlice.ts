@@ -36,6 +36,10 @@ const initialState: IUsersState = {
       id: "6",
       fullName: "Soudabeh Namazi",
     },
+    {
+      id: "7",
+      fullName: "Khalil",
+    },
   ],
 };
 
