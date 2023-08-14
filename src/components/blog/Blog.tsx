@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { articleDeleted, getBlogById } from "../../reducer/AppSlice";
+import { articleDeleted, getBlogById } from "../../reducer/blogSlice";
 import { RootState } from "../../store";
 import { useNavigate, NavLink } from "react-router-dom";
 

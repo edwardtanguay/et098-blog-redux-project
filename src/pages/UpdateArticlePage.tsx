@@ -1,39 +1,51 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { articleUpdated, getBlogById } from "../reducer/AppSlice";
+import { articleUpdated, getBlogById } from "../reducer/blogSlice";
 import { RootState } from "../store";
 import { useState } from "react";
+import { getAllUsers } from "../reducer/userSlice";
 
 const UpdateArticlePage = () => {
   const navigate = useNavigate();
   const blogId = useSelector((state: RootState) => state.blogs.blogId);
   const article = useSelector((state: RootState) => getBlogById(state, blogId));
+  const users = useSelector((state: RootState) => getAllUsers(state));
 
   const dispatch = useDispatch();
 
-  const [title, setTitle] = useState(article?.title);
-  const [image, setImage] = useState(article?.imgUrl);
-  const [content, setContent] = useState(article?.content);
+  const [formData, setFormData] = useState({
+    title: article?.title,
+    image: article?.imgUrl,
+    content: article?.content,
+    user: article?.user,
+  });
 
-  const onTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+  const onFormChange = (
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
-
-  const onImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setImage(event.target.value);
-  };
-
-  const onContentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value);
-  };
-
   const backToHomePage = () => {
     navigate("/");
   };
 
   const handleSubmitForm = () => {
-    if (title && content) {
-      dispatch(articleUpdated({ id: blogId, title, imgUrl:image, content }));
+    if (formData.title && formData.content) {
+      dispatch(
+        articleUpdated({
+          id: blogId,
+          title: formData.title,
+          imgUrl: formData.image,
+          content: formData.content,
+          user: formData.user,
+        })
+      );
       navigate(`/blog/${blogId}`);
     }
   };
@@ -45,28 +57,47 @@ const UpdateArticlePage = () => {
             className="w-full rounded-lg py-2 outline-0 px-3  text-BACKGROUND"
             type="text"
             placeholder="Title"
-            value={title}
-            onChange={onTitleChange}
+            name="title"
+            value={formData.title}
+            onChange={onFormChange}
           />
           <input
             className="w-full rounded-lg py-2 outline-0 px-3  text-BACKGROUND"
             type="text"
             placeholder="Path"
-            value={image}
-            onChange={onImageChange}
+            name="image"
+            value={formData.image}
+            onChange={onFormChange}
           />
+          <select
+            className="w-full rounded-lg py-2 outline-0 px-3  text-BACKGROUND"
+            name="user"
+            id=""
+            value={formData.user}
+            onChange={onFormChange}
+          >
+            <option className=" bg-slate-600">Authors</option>
+            {users.map((user) => (
+              <option className="odd:bg-slate-400 even:bg-slate-700" value={user.id} key={user.id}>
+                {user.fullName}
+              </option>
+            ))}
+          </select>
           <textarea
             className="w-full rounded-lg outline-0 px-3 py-2 text-BACKGROUND"
-            name=""
+            name="content"
             id=""
             cols={30}
             rows={10}
             placeholder="Content"
-            value={content}
-            onChange={onContentChange}
+            value={formData.content}
+            onChange={onFormChange}
           ></textarea>
           <div className="flex px-8 py-2 gap-8">
-            <button className="bg-CYAN px-8 py-2 rounded-lg" onClick={handleSubmitForm}>
+            <button
+              className="bg-CYAN px-8 py-2 rounded-lg"
+              onClick={handleSubmitForm}
+            >
               Update Article
             </button>
             <button

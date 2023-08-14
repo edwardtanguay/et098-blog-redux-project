@@ -1,7 +1,7 @@
 import { BiSun } from "react-icons/bi";
 import { FaRegMoon } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../../reducer/AppSlice";
+import { toggleTheme } from "../../reducer/blogSlice";
 import { RootState } from "../../store";
 
 const Theme = () => {

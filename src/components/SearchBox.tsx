@@ -2,7 +2,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import React from "react";
-import { setFilter } from "../reducer/AppSlice";
+import { setFilter } from "../reducer/blogSlice";
 const SearchBox = () => {
   const filter = useSelector((state: RootState) => state.blogs.filter);
   const OnChangeInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {

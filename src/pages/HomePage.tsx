@@ -3,7 +3,7 @@ import Blogs from "../components/blog/Blogs";
 import Blog from "../components/blog/Blog";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setBlogId } from "../reducer/AppSlice";
+import { setBlogId } from "../reducer/blogSlice";
 
 const HomePage = () => {
   const dispatch = useDispatch();

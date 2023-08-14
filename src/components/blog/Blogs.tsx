@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
-import { getAllArticles } from "../../reducer/AppSlice";
+import { getAllArticles } from "../../reducer/blogSlice";
 import { NavLink } from "react-router-dom";
 import { RootState } from "../../store";
 import SearchBox from "../SearchBox";
 import ShowTime from "../ShowTime";
+import ShowAuthor from "../ShowAuthor";
 
 const Blogs = () => {
   const filter = useSelector((state: RootState) => state.blogs.filter);
@@ -29,7 +30,8 @@ const Blogs = () => {
                 {article.title}
               </h3>
             </div>
-            <div className="text-COMMENT my-3">
+            <div className="text-COMMENT my-1 flex">
+              <ShowAuthor userId={article.user} />
               <ShowTime timestamp={article.date} />
             </div>
             <p className="my-4">{article.content.substring(0, 200)}...</p>

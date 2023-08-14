@@ -7,22 +7,24 @@ export interface IArticle {
   title: string;
   imgUrl: string;
   content: string;
+  user: string;
 }
 
-export interface IAppState {
+export interface IBlogState {
   darkMode: boolean;
   articles: IArticle[];
   blogId: string;
   filter: string;
 }
 
-const initialState: IAppState = {
+const initialState: IBlogState = {
   darkMode: false,
   blogId: "",
   filter: "",
   articles: [
     {
       id: nanoid(),
+      user: "1",
       date: new Date().toISOString(),
       title: "Dart",
       content:
@@ -32,6 +34,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "3",
       date: new Date().toISOString(),
       title: "Tailwind css",
       content:
@@ -41,6 +44,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "5",
       date: new Date().toISOString(),
       title: "React Js",
       content:
@@ -50,6 +54,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "6",
       date: new Date().toISOString(),
       title: "Node JS",
       content:
@@ -58,6 +63,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "4",
       date: new Date().toISOString(),
       title: "Express js",
       content:
@@ -67,6 +73,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "2",
       date: new Date().toISOString(),
       title: "Flutter",
       content:
@@ -76,6 +83,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "3",
       date: new Date().toISOString(),
       title: "C#",
       content:
@@ -85,6 +93,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "1",
       date: new Date().toISOString(),
       title: "Java",
       content:
@@ -93,6 +102,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "3",
       date: new Date().toISOString(),
       title: "Python",
       content:
@@ -102,6 +112,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "2",
       date: new Date().toISOString(),
       title: "Golang",
       content:
@@ -111,6 +122,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "4",
       date: new Date().toISOString(),
       title: "PHP",
       content:
@@ -120,6 +132,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "5",
       date: new Date().toISOString(),
       title: "Laravel",
       content:
@@ -129,6 +142,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "6",
       date: new Date().toISOString(),
       title: "Swift",
       content:
@@ -137,6 +151,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "1",
       date: new Date().toISOString(),
       title: "Javascript",
       content:
@@ -146,6 +161,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "2",
       date: new Date().toISOString(),
       title: "Angular",
       content:
@@ -155,6 +171,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "2",
       date: new Date().toISOString(),
       title: "HTML",
       content:
@@ -164,6 +181,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "3",
       date: new Date().toISOString(),
       title: "css",
       content:
@@ -173,6 +191,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "5",
       date: new Date().toISOString(),
       title: "bootStrap",
       content:
@@ -182,6 +201,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "6",
       date: new Date().toISOString(),
       title: "SCSS",
       content:
@@ -191,6 +211,7 @@ const initialState: IAppState = {
     },
     {
       id: nanoid(),
+      user: "6",
       date: new Date().toISOString(),
       title: "Kotlin",
       content:
@@ -215,9 +236,10 @@ const AppSlice = createSlice({
       state.filter = action.payload;
     },
     articleAdded: (state, action) => {
-      const { title, imgUrl, content } = action.payload;
+      const { title, imgUrl, content, user } = action.payload;
       state.articles.push({
         id: nanoid(),
+        user,
         date: new Date().toISOString(),
         title,
         imgUrl,
@@ -225,7 +247,7 @@ const AppSlice = createSlice({
       });
     },
     articleUpdated: (state, action) => {
-      const { id, title, imgUrl, content } = action.payload;
+      const { id, title, imgUrl, content, user } = action.payload;
       const existingArticle = state.articles.find(
         (article) => article.id === id
       );
@@ -233,6 +255,7 @@ const AppSlice = createSlice({
         existingArticle.title = title;
         existingArticle.imgUrl = imgUrl;
         existingArticle.content = content;
+        existingArticle.user = user;
       }
     },
     articleDeleted: (state, action) => {
