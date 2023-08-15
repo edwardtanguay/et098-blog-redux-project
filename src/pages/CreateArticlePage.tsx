@@ -34,22 +34,31 @@ const CreateArticlePage = () => {
     }));
   };
 
+  const canSave = [
+    formData.title,
+    formData.content,
+    formData.user,
+    formData.image,
+  ].every(Boolean);
+
   const addArticleToArray = () => {
-    dispatch(
-      articleAdded({
-        title: formData.title,
-        imgUrl: formData.image,
-        content: formData.content,
-        user: formData.user,
-      })
-    );
-    setFormData({
-      title: "",
-      content: "",
-      user: "",
-      image: "",
-    });
-    navigate("/");
+    if (canSave) {
+      dispatch(
+        articleAdded({
+          title: formData.title,
+          imgUrl: formData.image,
+          content: formData.content,
+          user: formData.user,
+        })
+      );
+      setFormData({
+        title: "",
+        content: "",
+        user: "",
+        image: "",
+      });
+      navigate("/");
+    }
   };
   return (
     <div className="flex min-h-screen justify-center items-center">
@@ -97,6 +106,7 @@ const CreateArticlePage = () => {
           ></textarea>
           <div className="flex px-8 py-2 gap-8">
             <button
+              disabled={!canSave}
               className="bg-CYAN px-8 py-2 rounded-lg"
               onClick={addArticleToArray}
             >

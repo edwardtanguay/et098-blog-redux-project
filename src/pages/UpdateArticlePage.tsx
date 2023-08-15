@@ -34,9 +34,15 @@ const UpdateArticlePage = () => {
   const backToHomePage = () => {
     navigate("/");
   };
+  const canSave = [
+    formData.title,
+    formData.content,
+    formData.image,
+    formData.user,
+  ].every(Boolean);
 
   const handleSubmitForm = () => {
-    if (formData.title && formData.content) {
+    if (canSave) {
       dispatch(
         articleUpdated({
           id: blogId,
@@ -78,7 +84,11 @@ const UpdateArticlePage = () => {
           >
             <option className=" bg-slate-600">Authors</option>
             {users.map((user) => (
-              <option className="odd:bg-slate-400 even:bg-slate-700" value={user.id} key={user.id}>
+              <option
+                className="odd:bg-slate-400 even:bg-slate-700"
+                value={user.id}
+                key={user.id}
+              >
                 {user.fullName}
               </option>
             ))}
@@ -95,6 +105,7 @@ const UpdateArticlePage = () => {
           ></textarea>
           <div className="flex px-8 py-2 gap-8">
             <button
+              disabled={!canSave}
               className="bg-CYAN px-8 py-2 rounded-lg"
               onClick={handleSubmitForm}
             >
