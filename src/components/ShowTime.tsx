@@ -2,7 +2,7 @@ import { formatDistanceToNow, parseISO } from "date-fns";
 interface IShowTimeProps {
   timestamp: string;
 }
-const ShowTime = ({ timestamp }: IShowTimeProps) => {
+const ShowTime: React.FC<IShowTimeProps> = ({ timestamp }) => {
   let timeAgo = "";
   if (timestamp) {
     const date = parseISO(timestamp);

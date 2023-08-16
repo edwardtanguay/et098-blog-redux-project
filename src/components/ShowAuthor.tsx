@@ -4,7 +4,7 @@ import { RootState } from "../store";
 interface IShowAuthorProps {
   userId: string;
 }
-const ShowAuthor = ({ userId }: IShowAuthorProps) => {
+const ShowAuthor: React.FC<IShowAuthorProps> = ({ userId }) => {
   const author = useSelector((state: RootState) =>
     state.users.users.find((user) => user.id === userId)
   );

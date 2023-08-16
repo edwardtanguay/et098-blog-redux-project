@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { IArticle, reactionAdded } from "../reducer/blogSlice";
+import React from "react";
 
 const reactionEmoji = {
   thumbSup: "🤙",
@@ -9,8 +10,14 @@ const reactionEmoji = {
   eyes: "👀",
 };
 
-const ReactionButtons = ({ blog }: { blog: IArticle }) => {
+interface IReactionButtonProps {
+  article: IArticle;
+}
+
+const ReactionButtons: React.FC<IReactionButtonProps> = ({ article }) => {
+
   const dispatch = useDispatch();
+  
   const reactionButtons = Object.entries(reactionEmoji).map(([name, emoji]) => {
     return (
       <button
@@ -18,10 +25,10 @@ const ReactionButtons = ({ blog }: { blog: IArticle }) => {
         key={name}
         type="button"
         onClick={() =>
-          dispatch(reactionAdded({ blogId: blog.id, reaction: name }))
+          dispatch(reactionAdded({ blogId: article.id, reaction: name }))
         }
       >
-        {emoji} {blog.reactions[name]}
+        {emoji} {article.reactions[name]}
       </button>
     );
   });

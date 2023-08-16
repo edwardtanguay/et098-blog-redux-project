@@ -116,7 +116,7 @@ const CreateArticlePage = () => {
               className="bg-ORANGE px-8 py-2 rounded-lg"
               onClick={backToHomePage}
             >
-              Cancle
+              Cancel
             </button>
           </div>
         </div>

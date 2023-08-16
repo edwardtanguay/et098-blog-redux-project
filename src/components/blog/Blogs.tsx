@@ -37,7 +37,7 @@ const Blogs = () => {
             </div>
             <p className="my-4">{article.content.substring(0, 200)}...</p>
             <div>
-              <ReactionButtons blog={article} />
+              <ReactionButtons article={article} />
             </div>
             <NavLink
               className="uppercase font-bold bg-CURRENT_LINE w-24 py-2 text-center rounded-lg text-FOREGROUND"

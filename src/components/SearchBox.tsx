@@ -3,13 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import React from "react";
 import { setFilter } from "../reducer/blogSlice";
+
 const SearchBox = () => {
+  
+  const dispatch = useDispatch();
+
   const filter = useSelector((state: RootState) => state.blogs.filter);
+
   const OnChangeInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setFilter(event.target.value));
     console.log(filter)
   };
-  const dispatch = useDispatch();
+
   return (
     <div className="flex justify-between w-96 bg-CURRENT_LINE rounded-lg overflow-hidden items-center">
       <input

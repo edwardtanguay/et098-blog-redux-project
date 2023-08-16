@@ -37,7 +37,7 @@ const Blog = () => {
           </div>
           <p className="my-4">{article?.content}</p>
           <div>
-            <ReactionButtons blog={article} />
+            <ReactionButtons article={article} />
           </div>
           <div className="flex justify-center gap-4">
             <button
