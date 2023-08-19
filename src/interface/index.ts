@@ -4,7 +4,7 @@ export interface IArticle {
   title: string;
   imgUrl: string;
   content: string;
-  user: string;
+  userId: string;
   reactions: Record<string, number>;
 }
 

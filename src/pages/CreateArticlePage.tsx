@@ -47,7 +47,7 @@ const CreateArticlePage = () => {
           title: formData.title,
           imgUrl: formData.image,
           content: formData.content,
-          user: formData.user,
+          userId: formData.user,
         })
       );
       setFormData({

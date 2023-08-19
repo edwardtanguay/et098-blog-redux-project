@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
-import { getAllArticles } from "../../reducer/blogSlice";
 import { NavLink } from "react-router-dom";
 import { RootState } from "../../store";
 import SearchBox from "../SearchBox";
 import ShowTime from "../ShowTime";
 import ShowAuthor from "../ShowAuthor";
 import ReactionButtons from "../ReactionButtons";
+import { selectAllBlogs } from "../../reducer/blogSlice";
 
 const Blogs = () => {
   const filter = useSelector((state: RootState) => state.blogs.filter);
-  const articles = useSelector((state: RootState) => getAllArticles(state)).slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const articles = useSelector((state: RootState) => selectAllBlogs(state)).slice().sort((a,b)=>b.date.localeCompare(a.date));
 
   return (
     <div className="flex flex-col gap-8 container px-5 py-10">
@@ -32,7 +32,7 @@ const Blogs = () => {
               </h3>
             </div>
             <div className="text-COMMENT my-1 flex">
-              <ShowAuthor userId={article.user} />
+              <ShowAuthor userId={article.userId} />
               <ShowTime timestamp={article.date} />
             </div>
             <p className="my-4">{article.content.substring(0, 200)}...</p>

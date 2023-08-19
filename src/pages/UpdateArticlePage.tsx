@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { articleUpdated, getBlogById } from "../reducer/blogSlice";
+import { articleUpdated, selectBlogById } from "../reducer/blogSlice";
 import { RootState } from "../store";
 import { useState } from "react";
 import { selectAllUsers } from "../reducer/userSlice";
@@ -8,7 +8,7 @@ import { selectAllUsers } from "../reducer/userSlice";
 const UpdateArticlePage = () => {
   const navigate = useNavigate();
   const blogId = useSelector((state: RootState) => state.blogs.blogId);
-  const article = useSelector((state: RootState) => getBlogById(state, blogId));
+  const article = useSelector((state: RootState) => selectBlogById(state, blogId));
   const users = useSelector(selectAllUsers);
 
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const UpdateArticlePage = () => {
     title: article?.title,
     image: article?.imgUrl,
     content: article?.content,
-    user: article?.user,
+    user: article?.userId,
   });
 
   const onFormChange = (
@@ -49,7 +49,7 @@ const UpdateArticlePage = () => {
           title: formData.title,
           imgUrl: formData.image,
           content: formData.content,
-          user: formData.user,
+          userId: formData.user,
         })
       );
       navigate(`/blog/${blogId}`);

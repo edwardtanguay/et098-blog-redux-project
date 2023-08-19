@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { articleDeleted, getBlogById } from "../../reducer/blogSlice";
+import { articleDeleted, selectBlogById } from "../../reducer/blogSlice";
 import { RootState } from "../../store";
 import { useNavigate, NavLink } from "react-router-dom";
 import ReactionButtons from "../ReactionButtons";
@@ -12,7 +12,7 @@ const Blog = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const blogId = useSelector((state: RootState) => state.blogs.blogId);
-  const article = useSelector((state: RootState) => getBlogById(state, blogId));
+  const article = useSelector((state: RootState) => selectBlogById(state, blogId));
 
   const backToHomePage = () => {
    navigate('/')
@@ -33,7 +33,7 @@ const Blog = () => {
             <h3 className="font-bold text-2xl text-ORANGE">{article?.title}</h3>
           </div>
           <div className="flex px-5 text-COMMENT">
-            <ShowAuthor userId={article.user} />
+            <ShowAuthor userId={article.userId} />
             <ShowTime timestamp={article.date} />
           </div>
           <p className="my-4">{article?.content}</p>

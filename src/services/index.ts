@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IArticle } from "../interface";
 
-const SERVER_URL = "http://localhost:9000";
+const SERVER_URL = "http://localhost:9001";
 
 export const getAllUsers = () => {
   const url = `${SERVER_URL}/users`;
@@ -13,7 +13,7 @@ export const getUser = (userId: string) => {
   return axios.get(url);
 };
 
-export const getBlogs = () => {
+export const getAllBlogs = () => {
   const url = `${SERVER_URL}/blogs`;
   return axios.get(url);
 };
