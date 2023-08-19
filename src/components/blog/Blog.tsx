@@ -3,9 +3,10 @@ import { articleDeleted, getBlogById } from "../../reducer/blogSlice";
 import { RootState } from "../../store";
 import { useNavigate, NavLink } from "react-router-dom";
 import ReactionButtons from "../ReactionButtons";
-import NotFoundPage from "../../pages/NotFoundPage";
+
 import ShowAuthor from "../ShowAuthor";
 import ShowTime from "../ShowTime";
+import NotFoundPage from "../../pages/NotFoundPage.tsx";
 
 const Blog = () => {
   const navigate = useNavigate();
@@ -14,14 +15,14 @@ const Blog = () => {
   const article = useSelector((state: RootState) => getBlogById(state, blogId));
 
   const backToHomePage = () => {
-    navigate("/");
+   navigate('/')
   };
   const handleDeleteButton = () => {
     dispatch(articleDeleted({ id: blogId }));
     navigate("/");
   };
   if (article) {
-    return (
+          return (
       <div
         className="flex flex-col gap-8 container px-5 py-10"
         key={article?.id}
@@ -39,6 +40,7 @@ const Blog = () => {
           <div>
             <ReactionButtons article={article} />
           </div>
+          
           <div className="flex justify-center gap-4">
             <button
               className="px-8 py-2 bg-RED rounded-lg"

@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import blogReducer, { IBlogState } from "../reducer/blogSlice";
-import userReducer, { IUsersState } from "../reducer/userSlice";
+import userReducer, { fetchUsers } from "../reducer/userSlice";
 
 export type RootState = {
   blogs: IBlogState;
-  users: IUsersState;
+  users: ReturnType<typeof userReducer>;
 };
 const store = configureStore({
   reducer: {
@@ -12,5 +12,5 @@ const store = configureStore({
     users: userReducer,
   },
 });
-
+store.dispatch(fetchUsers());
 export default store;

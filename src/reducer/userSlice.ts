@@ -1,53 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { IUser } from "../interface";
+import { getAllUsers } from "../services";
 
-export interface IUsers {
-  id: string;
-  fullName: string;
-}
+interface IUsersState extends Array<IUser> {}
 
-export interface IUsersState {
-  users: IUsers[];
-}
+export const fetchUsers=createAsyncThunk("/users/fetchUsers",async()=>{
+  const response=await getAllUsers();
+  return response.data;
+})
 
-const initialState: IUsersState = {
-  users: [
-    {
-      id: "1",
-      fullName: "Adel Namazi",
-    },
-    {
-      id: "2",
-      fullName: "Maryam Karimpour",
-    },
-    {
-      id: "3",
-      fullName: "Arvin Namazi",
-    },
-    {
-      id: "4",
-      fullName: "Arash Namazi",
-    },
-    {
-      id: "5",
-      fullName: "Pouria Namazi",
-    },
-    {
-      id: "6",
-      fullName: "Soudabeh Namazi",
-    },
-    {
-      id: "7",
-      fullName: "Khalil",
-    },
-  ],
-};
-
-export const getAllUsers = (state: RootState) => state.users.users;
 const userSlice = createSlice({
   name: "users",
-  initialState,
+  initialState:[] as IUsersState,
   reducers: {},
+  extraReducers:(builder)=>{
+    builder.addCase(fetchUsers.fulfilled,(state,action)=>{
+      return action.payload
+    })
+  }
 });
+
+export const selectAllUsers=(state:RootState)=>state.users;
+export const selectUserById=(state:RootState,userId:string)=>state.users.find((user:IUser)=>user.id===userId)
 
 export default userSlice.reducer;

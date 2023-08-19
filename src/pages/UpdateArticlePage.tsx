@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { articleUpdated, getBlogById } from "../reducer/blogSlice";
 import { RootState } from "../store";
 import { useState } from "react";
-import { getAllUsers } from "../reducer/userSlice";
+import { selectAllUsers } from "../reducer/userSlice";
 
 const UpdateArticlePage = () => {
   const navigate = useNavigate();
   const blogId = useSelector((state: RootState) => state.blogs.blogId);
   const article = useSelector((state: RootState) => getBlogById(state, blogId));
-  const users = useSelector((state: RootState) => getAllUsers(state));
+  const users = useSelector(selectAllUsers);
 
   const dispatch = useDispatch();
 

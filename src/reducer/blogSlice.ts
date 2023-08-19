@@ -1,15 +1,6 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-
-export interface IArticle {
-  id: string;
-  date: string;
-  title: string;
-  imgUrl: string;
-  content: string;
-  user: string;
-  reactions: Record<string, number>;
-}
+import { IArticle } from "../interface";
 
 export interface IBlogState {
   darkMode: boolean;

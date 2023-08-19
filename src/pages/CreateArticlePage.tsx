@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { articleAdded } from "../reducer/blogSlice";
-import { RootState } from "../store";
-import { getAllUsers } from "../reducer/userSlice";
+import { selectAllUsers } from "../reducer/userSlice";
 
 const CreateArticlePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const users = useSelector((state: RootState) => getAllUsers(state));
+  const users = useSelector(selectAllUsers);
 
   const [formData, setFormData] = useState({
     title: "",
