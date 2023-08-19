@@ -1,5 +1,5 @@
 import axios from "axios";
-import { IArticle } from "../interface";
+import { IArticle } from "../interface/interface";
 
 const SERVER_URL = "http://localhost:9001";
 

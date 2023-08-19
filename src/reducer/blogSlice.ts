@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { IArticle } from "../interface";
+import { IArticle } from "../interface/interface";
 import { getAllBlogs } from "../services";
 
 export interface IBlogState {

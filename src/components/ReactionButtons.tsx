@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { reactionAdded } from "../reducer/blogSlice";
 import React from "react";
-import { IArticle } from "../interface";
+import { IArticle } from "../interface/interface";
 
 const reactionEmoji = {
   thumbSup: "🤙",
