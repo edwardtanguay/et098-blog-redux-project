@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
 import { reactionAdded } from "../reducer/blogSlice";
-import React from "react";
 import { IArticle } from "../interface/interface";
 
 const reactionEmoji = {
@@ -15,7 +14,7 @@ interface IReactionButtonProps {
   article: IArticle;
 }
 
-const ReactionButtons: React.FC<IReactionButtonProps> = ({ article }) => {
+const ReactionButtons= ({ article }:IReactionButtonProps) => {
 
   const dispatch = useDispatch();
   
