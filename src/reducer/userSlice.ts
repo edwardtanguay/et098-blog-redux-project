@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { IUser } from "../interface/interface";
+import { IUser } from "../interface";
 import { getAllUsers } from "../services";
 
-interface IUsersState extends Array<IUser> {}
+export interface IUsersState extends Array<IUser> {}
 
 export const fetchUsers=createAsyncThunk("/users/fetchUsers",async()=>{
   const response=await getAllUsers();

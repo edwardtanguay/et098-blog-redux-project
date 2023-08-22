@@ -5,7 +5,7 @@ import { articleAdded } from "../reducer/blogSlice";
 import { selectAllUsers } from "../reducer/userSlice";
 
 const CreateArticlePage = () => {
-  const dispatch = useDispatch();
+             const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const users = useSelector(selectAllUsers);
@@ -18,7 +18,7 @@ const CreateArticlePage = () => {
   });
 
   const backToHomePage = () => {
-    navigate("/");
+         navigate("/");
   };
 
   const onFormChange = (
@@ -61,7 +61,7 @@ const CreateArticlePage = () => {
   };
   return (
     <div className="flex min-h-screen justify-center items-center">
-      <div className="container px-5 flex justify-center">
+                <div className="container px-5 flex justify-center">
         <div className="flex flex-col gap-4 items-center bg-CURRENT_LINE w-full lg:w-1/2 px-8 py-5 rounded-lg">
           <input
             className="w-full rounded-lg py-2 outline-0 px-3  text-BACKGROUND"

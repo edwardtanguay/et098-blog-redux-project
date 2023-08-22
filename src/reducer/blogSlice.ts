@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { IArticle } from "../interface/interface";
+import { IArticle } from "../interface";
 import { getAllBlogs } from "../services";
 
 export interface IBlogState {
@@ -21,10 +21,13 @@ const initialState: IBlogState = {
   error: null,
 };
 
-export const fetchBlogs = createAsyncThunk("/blogs/fetchBlogs", async () => {
-  const response = await getAllBlogs();
-  return response.data;
-});
+export const fetchBlogs = createAsyncThunk(
+  "/blogs/fetchBlogs",
+  async () => {
+    const response = await getAllBlogs();
+    return response.data;
+  }
+);
 
 const blogSlice = createSlice({
   name: "blogs",
@@ -59,9 +62,7 @@ const blogSlice = createSlice({
     },
     articleUpdated: (state, action) => {
       const { id, title, imgUrl, content, userId } = action.payload;
-      const existingArticle = state.blogs.find(
-        (article) => article.id === id
-      );
+      const existingArticle = state.blogs.find((article) => article.id === id);
       if (existingArticle) {
         existingArticle.title = title;
         existingArticle.imgUrl = imgUrl;

@@ -5,14 +5,13 @@ import React from "react";
 import { setFilter } from "../reducer/blogSlice";
 
 const SearchBox = () => {
-  
   const dispatch = useDispatch();
 
   const filter = useSelector((state: RootState) => state.blogs.filter);
 
   const OnChangeInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setFilter(event.target.value));
-    console.log(filter)
+    console.log(filter);
   };
 
   return (
