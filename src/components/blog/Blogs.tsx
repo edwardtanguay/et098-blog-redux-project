@@ -9,14 +9,22 @@ import { fetchBlogs, selectAllBlogs } from "../../reducer/blogSlice";
 import { useEffect } from "react";
 import Spinner from "../Spinner";
 
+
+const BlogStatus = {
+  Idle: "idle",
+  Loading: "loading",
+  Completed: "completed",
+  Failed: "failed",
+};
+
 const Blogs = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const blogStatus = useSelector((state: RootState) => state.blogs.status);
-
   const error = useSelector((state: RootState) => state.blogs.error);
   const filter = useSelector((state: RootState) => state.blogs.filter);
-  const articles = useSelector(selectAllBlogs)
+
+  const sortedArticles = useSelector(selectAllBlogs)
     .slice()
     .sort((a, b) => b.date.localeCompare(a.date));
 
@@ -25,18 +33,13 @@ const Blogs = () => {
       dispatch(fetchBlogs());
     }
   }, [blogStatus, dispatch]);
-  const BlogStatus = {
-    Idle: "idle",
-    Loading: "loading",
-    Completed: "completed",
-    Failed: "failed",
-  };
+
   const renderContent = () => {
     switch (blogStatus) {
       case BlogStatus.Loading:
         return <Spinner />;
       case BlogStatus.Completed:
-        return articles
+        return sortedArticles
           .filter((article) =>
             article.title.toLowerCase().includes(filter.toLowerCase())
           )
@@ -79,7 +82,6 @@ const Blogs = () => {
       <div className="flex justify-center">
         <SearchBox />
       </div>
-
       {renderContent()}
     </div>
   );
