@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { articleAdded } from "../reducer/blogSlice";
 import { selectAllUsers } from "../reducer/userSlice";
+import { addNewBlog } from "../reducer/blogSlice";
+import { nanoid } from "@reduxjs/toolkit";
+import { AppDispatch } from "../store";
 
 const CreateArticlePage = () => {
-             const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const users = useSelector(selectAllUsers);
@@ -16,9 +18,10 @@ const CreateArticlePage = () => {
     content: "",
     user: "",
   });
+  const [requestStatus, setRequestStatus] = useState("idle");
 
   const backToHomePage = () => {
-         navigate("/");
+    navigate("/");
   };
 
   const onFormChange = (
@@ -33,35 +36,49 @@ const CreateArticlePage = () => {
     }));
   };
 
-  const canSave = [
-    formData.title,
-    formData.content,
-    formData.user,
-    formData.image,
-  ].every(Boolean);
+  const canSave =
+    [formData.title, formData.content, formData.user, formData.image].every(
+      Boolean
+    ) && requestStatus === "idle";
 
-  const addArticleToArray = () => {
+  const handleSubmitForm = async () => {
     if (canSave) {
-      dispatch(
-        articleAdded({
-          title: formData.title,
-          imgUrl: formData.image,
-          content: formData.content,
-          userId: formData.user,
-        })
-      );
-      setFormData({
-        title: "",
-        content: "",
-        user: "",
-        image: "",
-      });
-      navigate("/");
+      try {
+        setRequestStatus("pending");
+        await dispatch(
+          addNewBlog({
+            id: nanoid(),
+            date: new Date().toISOString(),
+            title: formData.title,
+            imgUrl: formData.image,
+            content: formData.content,
+            userId: formData.user,
+            reactions: {
+              thumbSup: 0,
+              hooray: 0,
+              heart: 0,
+              rocket: 0,
+              eyes: 0,
+            },
+          })
+        );
+        setFormData({
+          title: "",
+          content: "",
+          user: "",
+          image: "",
+        });
+        navigate("/");
+      } catch (error) {
+        console.error("Failed to save the blog", error);
+      } finally {
+        setRequestStatus("idle");
+      }
     }
   };
   return (
     <div className="flex min-h-screen justify-center items-center">
-                <div className="container px-5 flex justify-center">
+      <div className="container px-5 flex justify-center">
         <div className="flex flex-col gap-4 items-center bg-CURRENT_LINE w-full lg:w-1/2 px-8 py-5 rounded-lg">
           <input
             className="w-full rounded-lg py-2 outline-0 px-3  text-BACKGROUND"
@@ -107,7 +124,7 @@ const CreateArticlePage = () => {
             <button
               disabled={!canSave}
               className="bg-CYAN px-8 py-2 rounded-lg"
-              onClick={addArticleToArray}
+              onClick={handleSubmitForm}
             >
               Add Article
             </button>

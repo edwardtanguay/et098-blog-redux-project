@@ -1,7 +1,7 @@
-import { createAsyncThunk, createSlice, nanoid } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { IArticle } from "../interface";
-import { getAllBlogs } from "../services";
+import { createBlog, getAllBlogs } from "../services";
 
 export interface IBlogState {
   darkMode: boolean;
@@ -26,6 +26,14 @@ export const fetchBlogs = createAsyncThunk("/blogs/fetchBlogs", async () => {
   return response.data;
 });
 
+export const addNewBlog = createAsyncThunk(
+  "/blogs/addNewBlog",
+  async (initialBlog: IArticle) => {
+    const response = await createBlog(initialBlog);
+    return response.data;
+  }
+);
+
 const blogSlice = createSlice({
   name: "blogs",
   initialState,
@@ -39,24 +47,7 @@ const blogSlice = createSlice({
     setFilter: (state, action) => {
       state.filter = action.payload;
     },
-    articleAdded: (state, action) => {
-      const { title, imgUrl, content, userId } = action.payload;
-      state.blogs.push({
-        id: nanoid(),
-        userId,
-        date: new Date().toISOString(),
-        title,
-        imgUrl,
-        content,
-        reactions: {
-          thumbSup: 0,
-          hooray: 0,
-          heart: 0,
-          rocket: 0,
-          eyes: 0,
-        },
-      });
-    },
+
     articleUpdated: (state, action) => {
       const { id, title, imgUrl, content, userId } = action.payload;
       const existingArticle = state.blogs.find((article) => article.id === id);
@@ -91,6 +82,9 @@ const blogSlice = createSlice({
       .addCase(fetchBlogs.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "An error occurred";
+      })
+      .addCase(addNewBlog.fulfilled, (state, action) => {
+        state.blogs.push(action.payload);
       });
   },
 });
@@ -105,7 +99,6 @@ export const {
   setBlogId,
   setFilter,
   articleDeleted,
-  articleAdded,
   articleUpdated,
   reactionAdded,
 } = blogSlice.actions;
