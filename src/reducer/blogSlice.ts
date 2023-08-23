@@ -21,13 +21,10 @@ const initialState: IBlogState = {
   error: null,
 };
 
-export const fetchBlogs = createAsyncThunk(
-  "/blogs/fetchBlogs",
-  async () => {
-    const response = await getAllBlogs();
-    return response.data;
-  }
-);
+export const fetchBlogs = createAsyncThunk("/blogs/fetchBlogs", async () => {
+  const response = await getAllBlogs();
+  return response.data;
+});
 
 const blogSlice = createSlice({
   name: "blogs",
