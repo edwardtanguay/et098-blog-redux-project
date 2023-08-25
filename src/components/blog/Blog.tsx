@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { articleDeleted, selectBlogById } from "../../reducer/blogSlice";
-import { RootState } from "../../store";
+import {  deleteApiBlog, selectBlogById } from "../../reducer/blogSlice";
+import { AppDispatch, RootState } from "../../store";
 import { useNavigate, NavLink } from "react-router-dom";
 import ReactionButtons from "../ReactionButtons";
 
@@ -8,9 +8,10 @@ import ShowAuthor from "../ShowAuthor";
 import ShowTime from "../ShowTime";
 import NotFoundPage from "../../pages/NotFoundPage.tsx";
 
+
 const Blog = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const blogId = useSelector((state: RootState) => state.blogs.blogId);
   const article = useSelector((state: RootState) => selectBlogById(state, blogId));
 
@@ -18,7 +19,7 @@ const Blog = () => {
    navigate('/')
   };
   const handleDeleteButton = () => {
-    dispatch(articleDeleted({ id: blogId }));
+    dispatch(deleteApiBlog(blogId));
     navigate("/");
   };
   if (article) {

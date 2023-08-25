@@ -1,11 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import blogReducer, { IBlogState, fetchBlogs } from "../reducer/blogSlice";
-import userReducer, { IUsersState, fetchUsers } from "../reducer/userSlice";
-
-export type RootState = {
-  blogs: IBlogState;
-  users: IUsersState;
-};
+import blogReducer, { fetchBlogs } from "../reducer/blogSlice";
+import userReducer, { fetchUsers } from "../reducer/userSlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +11,8 @@ const store = configureStore({
 
 store.dispatch(fetchUsers());
 store.dispatch(fetchBlogs());
+
+export type RootState = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 

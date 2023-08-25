@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { IArticle } from "../interface";
-import { createBlog, getAllBlogs } from "../services";
+import { createBlog, deleteBlog, getAllBlogs, updateBlog } from "../services";
 
 export interface IBlogState {
   darkMode: boolean;
@@ -34,6 +34,22 @@ export const addNewBlog = createAsyncThunk(
   }
 );
 
+export const updateApiBlog = createAsyncThunk(
+  "/blogs/updateApiBlog",
+  async (initialBlog: IArticle) => {
+    const response = await updateBlog(initialBlog, initialBlog.id);
+    return response.data;
+  }
+);
+
+export const deleteApiBlog = createAsyncThunk(
+  "/blogs/deleteApiBlog",
+  async (initialBlogId: string) => {
+    await deleteBlog(initialBlogId);
+    return initialBlogId;
+  }
+);
+
 const blogSlice = createSlice({
   name: "blogs",
   initialState,
@@ -48,20 +64,6 @@ const blogSlice = createSlice({
       state.filter = action.payload;
     },
 
-    articleUpdated: (state, action) => {
-      const { id, title, imgUrl, content, userId } = action.payload;
-      const existingArticle = state.blogs.find((article) => article.id === id);
-      if (existingArticle) {
-        existingArticle.title = title;
-        existingArticle.imgUrl = imgUrl;
-        existingArticle.content = content;
-        existingArticle.userId = userId;
-      }
-    },
-    articleDeleted: (state, action) => {
-      const { id } = action.payload;
-      state.blogs = state.blogs.filter((article) => article.id !== id);
-    },
     reactionAdded: (state, action) => {
       const { blogId, reaction } = action.payload;
       const existingBlog = state.blogs.find((blog) => blog.id === blogId);
@@ -85,6 +87,16 @@ const blogSlice = createSlice({
       })
       .addCase(addNewBlog.fulfilled, (state, action) => {
         state.blogs.push(action.payload);
+      })
+      .addCase(updateApiBlog.fulfilled, (state, action) => {
+        const { id } = action.payload;
+        const updatedBlogIndex = state.blogs.findIndex(
+          (blog) => blog.id === id
+        );
+        state.blogs[updatedBlogIndex] = action.payload;
+      })
+      .addCase(deleteApiBlog.fulfilled, (state, action) => {
+        state.blogs = state.blogs.filter((blog) => blog.id !== action.payload);
       });
   },
 });
@@ -98,8 +110,6 @@ export const {
   toggleTheme,
   setBlogId,
   setFilter,
-  articleDeleted,
-  articleUpdated,
   reactionAdded,
 } = blogSlice.actions;
 export default blogSlice.reducer;
