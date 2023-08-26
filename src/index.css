@@ -10,3 +10,9 @@
 .active{
         color:#ff5555;
 }
+
+@layer components{
+  .authors-list{
+    @apply px-8 py-3 border-x-8 border-x-COMMENT hover:border-x-ORANGE duration-500 mx-6  cursor-pointer odd:hover:bg-CURRENT_LINE/80 even:hover:bg-COMMENT/70 hover:text-xl font-bold hover:text-ORANGE bg-CYAN text-BACKGROUND rounded-xl
+  }
+}

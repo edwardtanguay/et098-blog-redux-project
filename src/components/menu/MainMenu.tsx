@@ -11,6 +11,7 @@ const MainMenu = () => {
         <ul className='flex items-center gap-4'>
             <li><NavLink to='/home'>Home</NavLink></li>
             <li><NavLink to='/create-article'>Create Article</NavLink></li>
+            <li><NavLink to='/AuthorsDirectory'>Authors Directory</NavLink></li>
         </ul>
         <div>
             <Theme />
