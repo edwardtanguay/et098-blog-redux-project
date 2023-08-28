@@ -1,5 +1,10 @@
 import axios from "axios";
 import { IArticle } from "../interface";
+import { blogs as _articles } from '../data/db.json';
+
+interface IArticleData {
+  data: IArticle[]
+}
 
 const SERVER_URL = "http://localhost:9001";
 
@@ -13,9 +18,12 @@ export const getUser = (userId: string) => {
   return axios.get(url);
 };
 
-export const getAllBlogs = () => {
-  const url = `${SERVER_URL}/blogs`;
-  return axios.get(url);
+export const getAllBlogs = (): Promise<IArticleData> => {
+  // const url = `${SERVER_URL}/blogs`;
+  // return axios.get(url);
+  return new Promise((resolve) => {
+    resolve({ data: _articles });
+  });
 };
 
 export const getBlog = (blogId: string) => {

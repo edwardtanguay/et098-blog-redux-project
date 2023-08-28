@@ -1,12 +1,14 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {RootState} from "../../store";
+import {AppDispatch, RootState} from "../../store";
 import SearchBox from "../SearchBox";
 import ShowTime from "../ShowTime";
 import ShowAuthor from "../ShowAuthor";
 import ReactionButtons from "../ReactionButtons";
+import {fetchBlogs, selectAllBlogs} from "../../reducer/blogSlice";
+import {useEffect} from "react";
 import Spinner from "../Spinner";
-import {blogs as _articles} from '../../data/db.json';
+
 
 const BlogStatus = {
     Idle: "idle",
@@ -17,19 +19,21 @@ const BlogStatus = {
 
 const Blogs = () => {
 
+    const dispatch = useDispatch<AppDispatch>();
+
     const blogStatus = useSelector((state: RootState) => state.blogs.status);
     const error = useSelector((state: RootState) => state.blogs.error);
     const filter = useSelector((state: RootState) => state.blogs.filter);
 
-    const sortedArticles = _articles
+    const sortedArticles = useSelector(selectAllBlogs)
         .slice()
         .sort((a, b) => b.date.localeCompare(a.date));
 
-    // useEffect(() => {
-    //     if (blogStatus === "idle") {
-    //         dispatch(fetchBlogs());
-    //     }
-    // }, [blogStatus, dispatch]);
+    useEffect(() => {
+        if (blogStatus === "idle") {
+            dispatch(fetchBlogs());
+        }
+    }, [blogStatus, dispatch]);
 
     const renderContent = () => {
         switch (blogStatus) {
@@ -85,3 +89,4 @@ const Blogs = () => {
 };
 
 export default Blogs;
+
