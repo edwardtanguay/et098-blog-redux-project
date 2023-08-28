@@ -1,0 +1,5 @@
+- .. change project so we have only one package.json
+- frontend reads data from import
+- publish to vercel to test
+- create config variable to determine if development/production
+- in production, hide Delete and Update buttons
