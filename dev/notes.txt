@@ -5,8 +5,9 @@
 	- x change README.md to explain how to install
 - .. frontend reads data from import
 	- x home page works locally
-	- .. fix vercel React Router reload page
+	- x fix vercel React Router reload page
 	- .. test home page at vercel
+		- .. fix home page so it works at vercel
 	- .. fix blog page to work at vercel
 - publish to vercel to test
 - create config variable to determine if development/production

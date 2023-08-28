@@ -303,7 +303,7 @@
     {
       "id": "tcxSmSUkDyP24rZye1piy",
       "date": "2023-08-23T18:15:55.350Z",
-      "title": "Mongo db333",
+      "title": "Mongo db",
       "imgUrl": "https://assets-global.website-files.com/60d9fbbfcd9fcb40bad8aac3/64cd6049c2a21bcbc11c0d55_mongodb%20mark.png",
       "content": "MongoDB ist eine NoSQL-Datenbank, die das Dokumentenmodell zur Speicherung von Daten verwendet. Diese Datenbank speichert Informationen in Dokumenten mit einer Struktur, die ähnlich zu JSON ist. Jedes Dokument kann verschiedene Eigenschaften und Daten enthalten. MongoDB eignet sich für viele Anwendungsfälle, darunter Webentwicklung, mobile Anwendungen und verteilte Systeme.",
       "userId": "vQUlD1p4E3K-VvOIFN36V",
