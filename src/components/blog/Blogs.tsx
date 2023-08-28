@@ -1,6 +1,6 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {AppDispatch, RootState} from "../../store";
+import {RootState} from "../../store";
 import SearchBox from "../SearchBox";
 import ShowTime from "../ShowTime";
 import ShowAuthor from "../ShowAuthor";
