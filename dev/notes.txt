@@ -1,8 +1,8 @@
 - .. change project so we have only one package.json
 	- x old was: "json-server": "^0.17.3"
 	- x it starts both json-server and frontend-react with "npm run dev"
-	- .. correct spelling
-	- change README.md to explain how to install
+	- x correct spelling
+	- .. change README.md to explain how to install
 - frontend reads data from import
 - publish to vercel to test
 - create config variable to determine if development/production
