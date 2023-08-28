@@ -67,7 +67,7 @@ const Blogs = () => {
                                 className="uppercase font-bold bg-CURRENT_LINE w-28 py-2 text-center rounded-lg text-FOREGROUND"
                                 to={`/blog/${article.id}`}
                             >
-                                Reed More
+                                Read More
                             </NavLink>
                         </article>
                     ));
