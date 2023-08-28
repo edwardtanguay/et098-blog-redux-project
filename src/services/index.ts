@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IArticle } from "../interface";
-import { blogs as _articles } from '../data/db.json';
+import { blogs as _articles, users as _users } from '../data/db.json';
 
 interface IArticleData {
   data: IArticle[]
@@ -8,9 +8,10 @@ interface IArticleData {
 
 const SERVER_URL = "http://localhost:9001";
 
-export const getAllUsers = () => {
-  const url = `${SERVER_URL}/users`;
-  return axios.get(url);
+export const getAllUsers = (): Promise<any> => {
+  return new Promise((resolve) => {
+    resolve({ data: _users });
+  });
 };
 
 export const getUser = (userId: string) => {
@@ -19,8 +20,6 @@ export const getUser = (userId: string) => {
 };
 
 export const getAllBlogs = (): Promise<IArticleData> => {
-  // const url = `${SERVER_URL}/blogs`;
-  // return axios.get(url);
   return new Promise((resolve) => {
     resolve({ data: _articles });
   });
