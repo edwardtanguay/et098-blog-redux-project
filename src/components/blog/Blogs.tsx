@@ -5,10 +5,10 @@ import SearchBox from "../SearchBox";
 import ShowTime from "../ShowTime";
 import ShowAuthor from "../ShowAuthor";
 import ReactionButtons from "../ReactionButtons";
-import {fetchBlogs, selectAllBlogs} from "../../reducer/blogSlice";
+import {fetchBlogs} from "../../reducer/blogSlice";
 import {useEffect} from "react";
 import Spinner from "../Spinner";
-
+import {blogs as _articles} from '../../data/db.json';
 
 const BlogStatus = {
     Idle: "idle",
@@ -25,7 +25,7 @@ const Blogs = () => {
     const error = useSelector((state: RootState) => state.blogs.error);
     const filter = useSelector((state: RootState) => state.blogs.filter);
 
-    const sortedArticles = useSelector(selectAllBlogs)
+    const sortedArticles = _articles
         .slice()
         .sort((a, b) => b.date.localeCompare(a.date));
 
