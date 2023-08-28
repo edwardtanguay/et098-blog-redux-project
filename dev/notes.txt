@@ -9,7 +9,7 @@
 	- x test home page at vercel
 		- x fix home page so it works at vercel
 	- x fix blog page to work at vercel
-	- .. fix users age to work at vercel
-- publish to vercel to test
-- create config variable to determine if development/production
+	- x fix users age to work at vercel
+- x publish to vercel to test
+- .. create config variable to determine if development/production
 - in production, hide Delete and Update buttons
